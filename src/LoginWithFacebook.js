@@ -17,7 +17,7 @@ function LoginWithFacebook() {
         );
     };
 
-    return <button onClick={handleLogin}>Login with Facebook</button>;
+    return <button onClick={handleLogin}>Login</button>;
 }
 
 export default LoginWithFacebook;
