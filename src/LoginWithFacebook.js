@@ -1,4 +1,3 @@
-// src/LoginWithFacebook.js
 import React from "react";
 
 function LoginWithFacebook() {

@@ -1,5 +1,0 @@
-{
-    "authResponse": null,
-    "status": "unknown"
-}
-
