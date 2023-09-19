@@ -1,71 +1,107 @@
-# Getting Started with Create React App
+# Facebook Login React POC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Proof of Concept (POC) for integrating Facebook login into a React project. The project provides a basic example of how to set up and use Facebook login functionality in a React application.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Before you begin, ensure you have the following:
 
-### `npm start`
+-   A Facebook App ID: You need to replace `"596931935777735"` in the `appId` field with your own App ID.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To run this project, follow these steps:
 
-### `npm test`
+1. Clone the repository to your local machine.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone <repository_url>
+```
 
-### `npm run build`
+2. Navigate to the project directory.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+cd <project_directory>
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install the project dependencies.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
 
-### `npm run eject`
+4. Start the development server.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Usage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Initializing Facebook SDK
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+In the `<script>` tag within your HTML file, you will find the initialization code for the Facebook SDK. Ensure you replace the `appId` with your own Facebook App ID.
 
-## Learn More
+```javascript
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "YOUR_APP_ID", // Replace with your App ID
+            cookie: true,
+            xfbml: true,
+            version: "v18.0",
+        });
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        FB.AppEvents.logPageView();
+    };
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    (function (d, s, id) {
+        var js,
+            fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+</script>
+```
 
-### Code Splitting
+### React Component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The main React component in this project is `LoginWithFacebook.js`. This component provides a "Login" button that allows users to log in with their Facebook account.
 
-### Analyzing the Bundle Size
+```javascript
+// src/LoginWithFacebook.js
+import React from "react";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+function LoginWithFacebook() {
+    const handleLogin = () => {
+        window.FB.login(
+            function (response) {
+                if (response.authResponse) {
+                    console.log("Successfully logged in with Facebook", response);
+                } else {
+                    console.log(response);
+                    console.log("Login failed");
+                }
+            },
+            {
+                config_id: "YOUR_CONFIG_ID",
+            }
+        );
+    };
 
-### Making a Progressive Web App
+    return <button onClick={handleLogin}>Login</button>;
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+export default LoginWithFacebook;
+```
 
-### Advanced Configuration
+Replace `"YOUR_CONFIG_ID"` with your own configuration ID.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# facebook-login-poc
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -8,11 +8,12 @@ function LoginWithFacebook() {
                 if (response.authResponse) {
                     console.log("Successfully logged in with Facebook", response);
                 } else {
+                    console.log(response);
                     console.log("Login failed");
                 }
             },
             {
-                config_id: "3396959963918383",
+                config_id: "321626767064583",
             }
         );
     };

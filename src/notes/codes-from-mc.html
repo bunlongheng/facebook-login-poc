@@ -1,0 +1,39 @@
+<!-- This code will load and initialize the FaceBook SDK -->
+<div id="fb-root"></div>
+<script>
+    // FB async initialization for SDK
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "596931935777735", // Business SDK
+            cookie: true,
+            xfbml: true,
+            version: "v16.0", // Business SDK
+        });
+        FB.AppEvents.logPageView();
+        FB.getLoginStatus(function (response) {
+            console.log("FB GET LOGIN RESPONSE", response);
+            if (response.status === "connected") {
+                // Checks login status of user and if connected, initiates Graph API
+                FB.api("/me", function (response) {
+                    // Graph API will access data within permissions
+                    console.log("Thanks for logging in, " + response.name + "!");
+                });
+            } else {
+                console.log("Please log in");
+            }
+        });
+    };
+    (function (d, s, id) {
+        var js,
+            fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+</script>
+<!-- Load the FB JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js" target="_top"></script>
